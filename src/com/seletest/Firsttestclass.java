@@ -3,12 +3,17 @@ package com.seletest;
 import junit.framework.*;
 import junit.framework.Test;
 
-import org.openqa.selenium.By;  
+import org.openqa.selenium.By;
+import org.openqa.selenium.By.ByLinkText;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;  
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;  
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -39,7 +44,7 @@ public class Firsttestclass {
        
     driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);    
     
-     driver.findElement(By.id("fname")).sendKeys("JavaTpoint");  
+     driver.findElement(By.id("fname")).sendKeys("JavaBot");  
        
     driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
       
@@ -59,11 +64,57 @@ public class Firsttestclass {
     
     System.out.print(dropdown.toString());
     //next stage       
+    
+    
     driver.navigate().to("https://demoqa.com/automation-practice-form");
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    JavascriptExecutor js = (JavascriptExecutor)driver;  
+    
+    driver.findElement(By.id("firstName")).sendKeys("Ja"); 
+    driver.findElement(By.id("lastName")).sendKeys("VaBot"); 
+    driver.findElement(By.id("userEmail")).sendKeys("bot@bot.com"); 
+    driver.findElement(By.className("custom-control-label")).click();
+    //driver.findElement(By.name("gender")).click();
+    //js.executeScript("document.getElementByClass("+"custom-control-label"+").disabled = true");
+    WebDriverWait wait = new WebDriverWait(driver, 5);
+    wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/div[2]/div[2]/div[1]/form/div[7]/div[2]/div[1]/label")));
+    driver.findElement(By.xpath("/html/body/div/div/div/div[2]/div[2]/div[1]/form/div[7]/div[2]/div[1]/label")).click();
+    
+    
+    js.executeScript("scrollBy(0, 4500)"); 
+    
+    
+    driver.findElement(By.xpath("/html/body/div/div/div/div[2]/div[2]/div[1]/form/div[10]/div[2]/div/div/div[2]/div")).click();
+    driver.findElement(By.id("submit")).click(); 
+    
+    //JavascriptExecutor js = (JavascriptExecutor) driver;/html/body/div/div/div/div[2]/div[2]/div[1]/form/div[7]/div[2]/div[1]/label
+    //String jsCmd = "document.getElementsByClass(' css-1hwfws3')[0].value='" + "NCR" + "'";
+    //js.executeScript(jsCmd);
+    
+    //dropdown = new Select (driver.findElement(By.id("state")));  /html/body/div/div/div/div[2]/div[2]/div[1]/form/div[10]/div[2]/div/div/div[2]/div
+    //dropdown.selectByVisibleText("NCR");genterWrapper
+    //city Delhi
+    //dropdown = new Select (driver.findElement(By.id("city")));  
+    //dropdown.selectByVisibleText("Delhi");
     
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    //next stage
+    //last stage
     driver.navigate().to("https://www.google.com/");
+    
+    driver.findElement(By.name("q")).sendKeys("TCS");
+    
+    driver.findElement(By.name("q")).sendKeys(Keys.ENTER);
+    
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    
+    try {
+		Thread.sleep(5000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+    
+    System.out.print(driver.findElement(By.partialLinkText("Tata Consultancy Services (TCS)")).isDisplayed());
     
     System.out.print("DONE");
         // Close the Browser  
