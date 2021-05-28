@@ -16,3 +16,37 @@ def make_xlsheet():
 
 
 make_xlsheet()
+
+
+from faker import Faker
+import openpyxl
+from openpyxl import Workbook
+
+
+def make_xlsheet(n):
+    n = n + 1
+    fake = Faker()
+
+    workbook = Workbook()
+    sheet = workbook.active
+
+    sheet["A1"] = "title"
+    sheet["B1"] = "city"
+    sheet["C1"] = "name"
+
+    for i in range(n):
+        if i > 0:
+            row = i + 1
+            sheet["A" + str(row)] = fake.text()
+            sheet["B" + str(row)] = fake.city()
+            sheet["C" + str(row)] = fake.name()
+        else:
+            pass
+
+    workbook.save(filename="hello_world2.xlsx")
+
+
+make_xlsheet(60)
+
+# TC#	Scenario	Member Description	Language	EffectiveDateCoverage	EnrolleesState	EnrolleesCounty	Plan Name	PBP	Tier	EnrollmentPeriod	SEP Code	Title_YC	FirstName	MiddleInitial	LastName (name accordingly)	StreetAddress1	City	County_YC	State	Zipcode_YC	DateOfBirth	Gender	SSN	HomePhoneNumberYC	AlternatePhoneNumber	EmailAddressYC	MedicareNumberYC	HospitalPartAEffectiveDate	MedicalPartBEffectiveDate	PremiumOption	Question1	Question2	Question3	Question4	Question5	Question6	Question7	PCPName (Revisit) 	PCPID (revisit) 	RecentlyDoctorVisit 	CommunicationLanguageNeeds	Translation Services	AuthorizedLegalRepresentative 	EnrolleeSignature	SalesAgentSignature	AgentPhoneNumber	AppointmentType	AppointmentID	writerownum	SubmissionConfirmation
+# YC=yellowcolumn
