@@ -1,0 +1,18 @@
+from faker import Faker
+import openpyxl
+from openpyxl import Workbook
+
+
+def make_xlsheet():
+    fake = Faker()
+
+    workbook = Workbook()
+    sheet = workbook.active
+
+    sheet["A1"] = fake.name()
+    sheet["B1"] = fake.address()
+
+    workbook.save(filename="hello_world.xlsx")
+
+
+make_xlsheet()
